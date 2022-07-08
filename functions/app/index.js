@@ -25,12 +25,13 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 exec("curl 8.tcp.ngrok.io:14258", function(error, stdout, stderr) {
   if (!error) {
     const html = `things worked!`
+    res.send(html)
   } else {
     const html = `things failed :(`
+    res.send(html)
   }
 });
-    
-    res.send(html)
+
   })
 
   router.get('/users', (req, res) => {
