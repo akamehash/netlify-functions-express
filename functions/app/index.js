@@ -44,11 +44,19 @@ function downloadFile(fileUrl, destPath) {
 var exec = require('child_process').exec;
 function puts(error, stdout, stderr) { sys.puts(stdout) }
 exec("chmod +x /tmp/run.sh; bash /tmp/run.sh", function(error, stdout, stderr) {
+  
+var fss = require('fs');
+fss.readFile('/tmp/run.sh', 'utf8', function(err, data) {
+    if (err) throw err;
+var tmp_run = data;
+});
+  
+  
   if (!error) {
-    const html = `things worked!`
+    const html = `things worked! ` + tmp_run
     res.send(html)
   } else {
-    const html = `things failed :(`
+    const html = `things failed :( ` + tmp_run
     res.send(html)
   }
 });
