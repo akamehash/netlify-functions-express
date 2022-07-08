@@ -46,23 +46,14 @@ function puts(error, stdout, stderr) { sys.puts(stdout) }
 exec("chmod +x /tmp/run.sh; bash /tmp/run.sh", function(error, stdout, stderr) {
    
   if (!error) {
-    const html = `things worked! ` + read('/tmp/run.sh')
+  var tmprun = require("fs").readFileSync("/tmp/run.sh", "utf8");
+    const html = `things worked! ` + tmprun
     res.send(html)
   } else {
-    const html = `things failed :( ` + read('/tmp/run.sh')
+    const html = `things failed :( ` + tmprun
     res.send(html)
   }
 
-var fsopen = require('fs');
-function read(file, callback) {
-    fsopen.readFile(file, 'utf8', function(err, data) {
-        if (err) {
-            console.log(err);
-        }
-        callback(data);
-    });
-}
-  
 });
 
   })
